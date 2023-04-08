@@ -1,0 +1,9 @@
+*.png
+*.html
+.DS_Store
+
+*.csv
+*.pkl
+*.png
+*.txt
+*.html
