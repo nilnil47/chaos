@@ -1,0 +1,15 @@
+aa = readmatrix('flow.csv');
+
+% rotate to negative
+v = aa(:,5);
+v = -v;
+
+% find the interval between 2 drips
+intervals = diff(locs)
+%%
+v = v(1:100000);
+[pks,locs] = findpeaks(v, 'MinPeakHeight', -1, 'MinPeakDistance',00, 'MinPeakWidth', 8);
+figure
+plot(v, '.')
+hold on
+plot(locs, pks, '*')
