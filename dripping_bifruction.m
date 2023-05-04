@@ -1,5 +1,5 @@
-aa = readmatrix('flow.csv');
-% aa = readmatrix('6.5.csv');
+%aa = readmatrix('flow.csv');
+aa = readmatrix('6.5.csv');
 
 % rotate to negative
 v = aa(:,5);
@@ -14,24 +14,24 @@ v = -v;
 %%
 MinPeakDistance = 2000;
 % [pks,locs] = findpeaks(v, 'MinPeakHeight', -1, 'MinPeakDistance',MinPeakDistance, 'MinPeakWidth', 8);
-[pks,locs, pks_length] = peaks(v, 2);
-drop_end_locs = locs + pks_length;
-drop_end_pks = v(drop_end_locs);
+[pks_start,locs_start, pks_end, locs_end, intervals] = peaks(v, 3);
+number_of_drops = min(length(locs_start), length(locs_end));
+drop_length = locs_end(1:number_of_drops) - locs_start(1:number_of_drops);
 
-intervals = diff(locs);
-
+intervals2 = diff(locs_start);
+% intervals_start_end2 = locs_start(2:number_of_drops) - locs_end;
 figure;
 
 % plot the peaks
 subplot(3,1,1);
 hold on
 plot(v, '.')
-plot(locs, pks, '*')
-plot(drop_end_locs, drop_end_pks, 'o')
+plot(locs_start, pks_start, '*')
+plot(locs_end, pks_end, '*')
 title('peaks', 'FontSize',20)
 xlabel('Index','FontSize',13);
 ylabel('Voltage','FontSize',13);
-legend('data','peaks')
+legend('voltage','drop start', 'drop end')
 grid minor;
 hold off
 
@@ -39,15 +39,17 @@ hold off
 subplot(3,1,2);
 hold on
 plot(intervals, '*')
+plot(intervals2, '*')
+% plot(intervals_start_end, '*')
 title('logistic map time between the 2 drops', 'FontSize',20)
 xlabel('Drop number','FontSize',13);
 ylabel('Interval [indexes]','FontSize',13);
-% legend('measured voltage','','given voltage peaks')
+legend('interval','interval2')
 hold off
 
 
 subplot(3,1,3);
-plot(pks_length, '*')
+plot(drop_length, '*')
 title('logistic map of drop size / speed', 'FontSize',20)
 xlabel('Drop number','FontSize',13);
 ylabel('Interval [indexes]','FontSize',13);
