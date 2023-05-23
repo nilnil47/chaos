@@ -47,19 +47,51 @@ legend('interval','interval2')
 hold off
 
 
+
+
 subplot(3,1,3);
+% return map
 hold on
-plot(drop_length, '*')
-% plot(drop_length2, '*')
-title('logistic map of drop size / speed', 'FontSize',20)
-xlabel('Drop number','FontSize',13);
-ylabel('Interval [indexes]','FontSize',13);
-legend('drop length','drop length 2')
+plot(v(1:end-1), v(2:end),'.')
+title('return map', 'FontSize',20)
+xlabel('voltage (n)','FontSize',13);
+ylabel('Voltage (n+1)','FontSize',13);
+grid minor;
 hold off
+
+%%
+% interval
+% hold on
+% plot(drop_length, '*')
+% title('logistic map of drop size / speed', 'FontSize',20)
+% xlabel('Drop number','FontSize',13);
+% ylabel('Interval [indexes]','FontSize',13);
+% legend('drop length','drop length 2')
+% hold off
+% 
+% mkdir fig
+% savefig(fig, fullfile('fig', name + ".fig"))
+% saveas(gcf, fullfile('fig', name + ".png"))
+
+%%
+
+% return map
+% subplot(3,1,1);
+% figure
+% hold on
+% plot(v(1:end-1), v(2:end),'.')
+% title('return map', 'FontSize',20)
+% xlabel('voltage (n)','FontSize',13);
+% ylabel('Voltage (n+1)','FontSize',13);
+% grid minor;
+% hold off
+
 
 mkdir fig
 savefig(fig, fullfile('fig', name + ".fig"))
 saveas(gcf, fullfile('fig', name + ".png"))
+
+
 % plot 
 
 % figure
