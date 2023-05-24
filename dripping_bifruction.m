@@ -32,9 +32,12 @@ y = intervals(2:end);    % Time intervals t+1
 % Define the number of bins you want in each dimension.
 % This might need to be adjusted depending on your data.
 num_bins = [200 200];
-
+crop = [50 50];
 % Create 2D histogram
 hist_data = hist3([x' y'], 'Edges', {linspace(min(x),max(x),num_bins(1)), linspace(min(y),max(y),num_bins(2))});
+
+% crop irelevent parts from the graph
+hist_data = hist_data(1:crop(1), 1:crop(2));
 
 % Flip the data along the vertical axis
 % hist_data = flipud(hist_data);
@@ -49,9 +52,24 @@ hist_data = hist3([x' y'], 'Edges', {linspace(min(x),max(x),num_bins(1)), linspa
 
 x = round(linspace(min(x),max(x),num_bins(1)),2);
 y = round(linspace(min(y),max(y),num_bins(2)),2);
+
+x = x(1:crop(1));
+y = y(1:crop(1));
+
 imagesc(x,y,hist_data');
 colorbar;
 set(gca,'YDir','normal'); % To align the (1,1) with bottom left.
+
+% After your imagesc and colorbar commands
+
+% Set x-axis limits (indices)
+xlim([x_index_min x_index_max]);
+
+% Set y-axis limits (indices)
+ylim([y_index_min y_index_max]);
+
+% Set color axis limits
+clim([cmin cmax]);
 
 % After your imagesc and colorbar commands
 % xticks(linspace(min(x), max(x), 10));  % Replace 10 with desired number of ticks
